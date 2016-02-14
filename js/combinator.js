@@ -3,7 +3,7 @@ sigtree.combinator = function(){
 	compare = sigtree_combinatorCompare,
 	combine_by_index = sigtree_combinatorCombineByIndex;
 	by_index = false;
-    
+    tt
 	// lst1 and lst2 are both array;
 	function combinator(lst1, lst2){
 		//
