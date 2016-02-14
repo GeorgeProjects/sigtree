@@ -5,7 +5,7 @@
 //         processor:         
 //     ]
     
-//fsdfsdfsd
+
 (function() {
     this.dataCenter = {};
 
