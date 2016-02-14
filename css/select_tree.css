@@ -1,0 +1,69 @@
+.text{
+  font-size: 12px;
+}
+.time{
+  font-size: 12px;
+}
+.size{
+  font-size: 12px;
+}
+.tick_label{
+  font-size: 12px;
+}
+#innerTopLeft {
+  text-align: center;
+  float: left;
+  width: 80%;
+  height: 100%;
+}
+#innerTopRight {
+  padding: 5px 5px 5px 10px;
+  text-align: center;
+  /*vertical-align: center;*/
+  float: right;
+  width: 20%;
+  height: 100%;
+  border:1px solid #a0a0a0;
+  padding:5px 5px 5px 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#mainTimeline .bar {
+  fill: #C0C0C0;
+}
+
+#mainTimeline .previous {
+  fill: #FF7F0E;
+}
+
+#mainTimeline .current {
+  fill: #1F77B4;
+  stroke: #b2df8a;
+  stroke-width: 2px;
+}
+#mainTimeline .change-previous {
+  fill: #FF7F0E;
+  stroke: #b2df8a;
+  stroke-width: 2px;
+}
+
+#mainTimeline .change-current {
+  fill: #1F77B4;
+}
+.label-wrapper > .label  {
+  pointer-events: none;
+  cursor: not-allowed;  
+  color: white;
+}
+
+#tree-select-controller {
+  text-align: right;
+}
+
+
+#label-C {
+  margin-top: 0.3em;
+  padding-top: 0.3em;
+  border-top: 2px solid #ddd;
+}

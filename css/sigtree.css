@@ -1,0 +1,179 @@
+/* D3.tips */
+.d3-tip {
+  line-height: 1.5em;
+  font-size: 12px;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 4px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: 0px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+/* End of d3.tips */
+
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:4px !important; 
+    padding-bottom:0 !important;
+    height: 35px;
+}
+.navbar {min-height:35px !important;}
+#topWrapper {
+  position: absolute;
+  top:35px;
+  /*top: 50px;*/
+  left: 0%;
+  right: 0%;
+  bottom: 70%;
+  border:1px solid #a0a0a0;
+}
+
+#rightWrapper {
+  border:1px solid #a0a0a0;
+  position: absolute;
+
+  /*start of change*/
+  /*
+  padding: 10px;
+  top: 30%;
+  left: 50%;
+  right: 0%;
+  bottom: 0%;
+  */
+  
+  height:0%;
+  width:0%;
+  
+  /*end of change*/
+
+}
+
+#tree-compare-depth-controller {
+  position: absolute;
+  right: 8px;
+}
+
+#leftTopWrapper {
+  border:1px solid #a0a0a0;
+  position: absolute;
+  top: 30%;
+  left: 0%;
+
+  /*start of change*/
+  /*
+  right: 50%;
+  bottom: 30%;
+  */
+  
+  right: 0%;
+  bottom: 0%;
+  
+  /*end of change*/
+
+  /*overflow-y:auto;*/
+}
+
+#radial-depth-controller {
+  float: left;
+  margin-left: 8px;
+  margin-top: 8px;
+}
+
+#radial-depth-controller .btn {
+  margin: 2px 0;
+}
+
+#leftBottomWrapper {
+  border:2px solid #a0a0a0;
+  position: absolute;
+
+
+  /*start of change*/
+  /*
+  top: 70%;
+  left: 0%;
+  right: 50%;
+  bottom: 0%;
+  */
+  
+  width: 0%;
+  height:0%;
+  
+  /*end of change*/
+
+}
+
+#srocllDiv,#scrollDiv2{
+  padding:0px 0px 0px 0px;
+}
+#bottom-scroll{
+  border:1px solid #a0a0a0;
+  padding:5px 0px 0px 2px;
+  overflow-y: scroll;
+}
+.node > text{
+  stroke:none;
+}
+.level-btn{
+  /*background-color: #1F77B4;*/
+}
+
+.background-A {
+  background-color: #1F77B4;
+}
+
+
+.background-B {
+  background-color: #FF7F0E;
+}
+
+path[class~=highlight], circle[class~=highlight], rect[class~=highlight], g[class~=highlight] > circle {
+  fill: #ff5858 !important;
+  stroke: #ff5858 !important;
+}
+
+path[class~=half-highlight], circle[class~=half-highlight], rect[class~=half-highlight], g[class~=half-highlight] > circle {
+  /*fill: #ff5858 !important;*/
+  stroke: #ff5858 !important;
+  stroke-width: 1px !important;
+}
+
+path[class~=focus-highlight], circle[class~=focus-highlight], rect[class~=focus-highlight], g[class~=focus-highlight] > circle {
+  fill: #ff5858 !important;
+  stroke: #ff5858 !important;
+
+/*  opacity: 0.8;*/
+  animation-name: highlight-animation;
+  animation-duration:1s;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+
+@keyframes highlight-animation {
+    0% {}
+    50% {
+      stroke-width: 5px;
+    }
+    100% {}
+}
+
+

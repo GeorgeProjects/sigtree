@@ -1,0 +1,4 @@
+.parset path[class~=highlight] {
+    stroke: #b2df8a;
+    fill: red;
+}

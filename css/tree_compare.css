@@ -1,0 +1,50 @@
+.node{
+	stroke: steelblue;
+	stroke-width: 1;
+}
+.node-leaf{
+	fill: #CCC29C;
+}
+.node-inner{
+	fill: steelblue;
+}
+
+.node[class~=highlight] {
+  fill: #b2df8a;
+  stroke: #b2df8a;
+}
+
+.link{
+	stroke-width:1px;
+	stroke: #888888;
+	fill:none;
+	opacity:0.8;
+}
+
+.trend{
+	fill: none;
+	stroke-width:1px;
+	stroke: gray;
+	opacity: 0.5;
+}
+.top_bar{
+	opacity:0.8;
+  fill:#1F77B4;
+	/*fill: green;*/
+}
+.bottom_bar{
+	opacity:0.8;
+  fill:#FF7F0E;
+	/*fill: blue;	*/
+}
+
+.AB{
+  font-size: 25px;
+}
+#label-A .label {
+  background-color: #1F77B4;
+}
+
+#label-B .label {
+  background-color: #FF7F0E;
+}
