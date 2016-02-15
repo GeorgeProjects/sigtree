@@ -6,16 +6,13 @@ var radial = function(){
 		.attr("width", 13002)
 		.attr("height", 627);	
 
-
 	var Radial = {};
 	ObserverManager.addListener(Radial);
-
 
 	var dataProcessor = dataCenter.datasets[0].processor;
 	var dataset = dataCenter.datasets[0].processor.result;
 
 	console.log("dataset",dataset)
-
 
 	//注意：JS中函数参数传递不是按引用传的
 	//函数内部如果直接给传入的对象赋值，效果是对内部的拷贝赋值；如果修改传入的对象的成员，那么修改能够影响到传入的对象
@@ -570,19 +567,23 @@ var radial = function(){
 		//控制每个柱的横向位置
 		var cur_biasx=100;
 
+		var acc_depth_node_num=[];//记录各个深度的结点数
+		for (var i=0;i<=4;++i)
+			acc_depth_node_num[i]=0;
+
 		//先画条码
 		for (var i=0;i<linear_tree_length;++i)//对于线性化的并集树中每个元素循环
 		{
-
-
 			mem_biasx_byindex[i]=cur_biasx;
 
 			var cur_element=linear_tree[i];
 
+			//记录cur_element._depth深度的结点发现一个
+			acc_depth_node_num[cur_element._depth]=acc_depth_node_num[cur_element._depth]+1;
+
 			if (cur_element._depth > shown_depth)
 				continue;
 			
-
 			if (+cur_element._depth==0)
 				var cur_width=24;
 			else if (+cur_element._depth==1)
@@ -756,7 +757,6 @@ var radial = function(){
 					} 
 				}	
 			}
-
 			
 			var rect_attribute_button={
 				width:cur_width,
@@ -838,7 +838,6 @@ var radial = function(){
 				var coord_jump_height=5;//弧的高度
 
 
-
 			var y_coord=cur_biasy;
 			var start_x_coord=mem_biasx_byindex[cur_element_father.linear_index];
 			var end_x_coord=mem_biasx_byindex[cur_element.linear_index];
@@ -856,12 +855,48 @@ var radial = function(){
 		}
 		
 
+		draw_text_description();
+		//给出text标注每个深度的结点分别有多少个
+		function draw_text_description()
+		{
 
-		console.log(mem_biasx_byindex);
+			var str = 	"L0 node number:"+acc_depth_node_num[0]+"，" +
+						"L1 node number:"+acc_depth_node_num[1]+"，" +
+						"L2 node number:"+acc_depth_node_num[2]+"，" +
+						"L3 node number:"+acc_depth_node_num[3]+"，" +
+						"L4 node number:"+acc_depth_node_num[4];			
+				
+			var text = g.append("text")
+							.attr("x",30)
+							.attr("y",100)
+							.attr("font-size",20)
+							.attr("font-family","simsun")
+							.attr("position","absolute")
+					.attr("transform",function(d,i){  
+					        return "translate(" + (100) + "," + (100) + ")";  
+					    }) 
+						;
+							
+			var strs = str.split("，") ;
+			
+			console.log(strs);
+								
+			text.selectAll("tspan")
+					.data(strs)
+					.enter()
+					.append("tspan")
+					.attr("x",text.attr("x"))
+					.attr("dy","1em")
+					.text(function(d){
+						return d;
+					})
+					;
+		}
 
 	}
 
-	
+
+
 		
 
 	function creat_button(rect_attribute_button){
@@ -885,14 +920,14 @@ var radial = function(){
 		
 
 		g.append("rect")
-
 					.datum(cur_data)//绑定数据以后，后面的function才能接到d，否则只能接到this
 					
 					.on("mouseover",mouseover_function)
 					.on("click",mouseclick_function)
 
 					.on("mouseout",function(){
-						mouseout_function(this);
+						if (typeof(mouseout_function)!="undefined")
+							mouseout_function(this);
 						tooltip.style("opacity",0.0);
 					})
 					.on("mousemove",function(){
@@ -915,6 +950,8 @@ var radial = function(){
 				    .attr("fill",function(d,i){  
 				        return background_color;  
 				    }) 
+
+				    
 					;
 
 
