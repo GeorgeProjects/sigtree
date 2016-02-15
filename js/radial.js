@@ -6,16 +6,10 @@ var radial = function(){
 		.attr("width", 13002)
 		.attr("height", 627);	
 
-	
-
-	 
-
 
 	var Radial = {};
 	ObserverManager.addListener(Radial);
 
-
-	
 
 	var dataProcessor = dataCenter.datasets[0].processor;
 	var dataset = dataCenter.datasets[0].processor.result;
@@ -566,18 +560,28 @@ var radial = function(){
 					    .style("opacity", 0);
 					    
 
+		//记录每个条带的横坐标
+		//linear_tree和mem_biasx_byindex的同一下标对应的是相同的元素的属性
+		var mem_biasx_byindex=[];
+
 		//并集树中含有的结点总数
 		var linear_tree_length=linear_tree.length;
 
 		//控制每个柱的横向位置
 		var cur_biasx=100;
+
+		//先画条码
 		for (var i=0;i<linear_tree_length;++i)//对于线性化的并集树中每个元素循环
 		{
+
+
+			mem_biasx_byindex[i]=cur_biasx;
+
 			var cur_element=linear_tree[i];
 
 			if (cur_element._depth > shown_depth)
 				continue;
-			//console.log(cur_element._depth);
+			
 
 			if (+cur_element._depth==0)
 				var cur_width=24;
@@ -785,7 +789,8 @@ var radial = function(){
 
 
 					//高亮，黄色高亮孩子；橙色高亮自己；红色高亮父；棕色高亮兄弟
-					color_transfer(this,"yellow","orange","red","brown","transfer");		
+					//黄色太亮，换成土黄色
+					color_transfer(this,"#CCCC00"/*"yellow"*/,"orange","red","brown","transfer");		
 							
 				},
 				mouseout_function:function(cur_this)
@@ -798,11 +803,62 @@ var radial = function(){
 			};			
 			creat_button(rect_attribute_button);
 
-
 			//每两个柱之间间隔1px
 			var interval=1;
+			
 			cur_biasx=cur_biasx+cur_width+interval;
 		}
+
+		//再画上面连接的弦
+		
+		for (var i=linear_tree_length-1;i>=0;--i)
+		{
+			var cur_element=linear_tree[i];
+
+			if (cur_element._depth > shown_depth)
+				continue;
+
+			var cur_element_father=cur_element._father;
+			if (typeof(cur_element_father)=="undefined")
+			{
+				continue;
+			}
+
+			//start of draw arc
+			//console.log(cur_element);
+			if (cur_element_father._depth==0)
+				var coord_jump_height=40;//弧的高度
+			else if (cur_element_father._depth==1)
+				var coord_jump_height=30;//弧的高度
+			else if (cur_element_father._depth==2)
+				var coord_jump_height=20;//弧的高度
+			else if (cur_element_father._depth==3)
+				var coord_jump_height=10;//弧的高度
+			else
+				var coord_jump_height=5;//弧的高度
+
+
+
+			var y_coord=cur_biasy;
+			var start_x_coord=mem_biasx_byindex[cur_element_father.linear_index];
+			var end_x_coord=mem_biasx_byindex[cur_element.linear_index];
+			var curve_path = 	"M" + start_x_coord + "," + y_coord + 
+								"T" + (start_x_coord+end_x_coord)/2 + ","+ (y_coord-coord_jump_height) + 
+								"T" + end_x_coord + ","+ y_coord;
+			var curve = g.append("path")
+						 .attr("d",curve_path)
+						 .attr("fill","black")
+						 //.attr("fill-opacity",1)//fill的内容的透明度
+						 .attr("fill-opacity",0)//fill的内容的透明度
+						 .attr("stroke","red")
+						 .attr("stroke-width",1);
+			//end of draw arc
+		}
+		
+
+
+		console.log(mem_biasx_byindex);
+
 	}
 
 	
